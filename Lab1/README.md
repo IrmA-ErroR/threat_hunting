@@ -1,3 +1,4 @@
+# Системы аутентификации и защиты от несанкционированного доступа
 Kabanova Svetlana BISO-01-20
 
 # Системы аутентификации и защиты от несанкционированного доступа
@@ -88,8 +89,8 @@ free -h
 ```
 
                    total        used        free      shared  buff/cache   available
-    Mem:           3.8Gi       2.5Gi       820Mi       144Mi       977Mi       1.3Gi
-    Swap:          1.0Gi       825Mi       198Mi
+    Mem:           3.8Gi       3.1Gi       111Mi       174Mi       1.1Gi       766Mi
+    Swap:          1.0Gi       811Mi       212Mi
 
 *- show human-readable output*
 
@@ -110,20 +111,6 @@ df -ht ext4
 journalctl | tail -n 30
 ```
 
-    Apr 02 14:15:01 kali CRON[86178]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
-    Apr 02 14:15:01 kali CRON[86177]: pam_unix(cron:session): session closed for user root
-    Apr 02 14:17:01 kali CRON[87166]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
-    Apr 02 14:17:01 kali CRON[87167]: (root) CMD (cd / && run-parts --report /etc/cron.hourly)
-    Apr 02 14:17:01 kali CRON[87166]: pam_unix(cron:session): session closed for user root
-    Apr 02 14:20:06 kali dbus-daemon[1139]: [session uid=1000 pid=1139] Activating service name='org.xfce.Xfconf' requested by ':1.22' (uid=1000 pid=1286 comm="xfsettingsd")
-    Apr 02 14:20:06 kali dbus-daemon[1139]: [session uid=1000 pid=1139] Successfully activated service 'org.xfce.Xfconf'
-    Apr 02 14:20:37 kali dbus-daemon[637]: [system] Activating via systemd: service name='org.bluez' unit='dbus-org.bluez.service' requested by ':1.158' (uid=1000 pid=88953 comm="/usr/share/code/code --unity-launch --enable-crash")
-    Apr 02 14:20:37 kali dbus-daemon[637]: [system] Activation via systemd failed for unit 'dbus-org.bluez.service': Unit dbus-org.bluez.service not found.
-    Apr 02 14:20:43 kali dbus-daemon[637]: [system] Activating via systemd: service name='org.freedesktop.hostname1' unit='dbus-org.freedesktop.hostname1.service' requested by ':1.128' (uid=1000 pid=8151 comm="/usr/share/code/code --unity-launch --enable-crash")
-    Apr 02 14:20:43 kali systemd[1]: Starting systemd-hostnamed.service - Hostname Service...
-    Apr 02 14:20:43 kali dbus-daemon[637]: [system] Successfully activated service 'org.freedesktop.hostname1'
-    Apr 02 14:20:43 kali systemd[1]: Started systemd-hostnamed.service - Hostname Service.
-    Apr 02 14:21:13 kali systemd[1]: systemd-hostnamed.service: Deactivated successfully.
     Apr 02 14:25:01 kali CRON[91615]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
     Apr 02 14:25:01 kali CRON[91616]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
     Apr 02 14:25:01 kali CRON[91615]: pam_unix(cron:session): session closed for user root
@@ -140,6 +127,20 @@ journalctl | tail -n 30
     Apr 02 14:39:01 kali systemd[1]: phpsessionclean.service: Deactivated successfully.
     Apr 02 14:39:01 kali systemd[1]: Finished phpsessionclean.service - Clean php session files.
     Apr 02 14:40:23 kali NetworkManager[712]: <info>  [1680460823.4753] dhcp4 (eth0): state changed new lease, address=192.168.79.128
+    Apr 02 14:44:11 kali dbus-daemon[637]: [system] Activating via systemd: service name='org.bluez' unit='dbus-org.bluez.service' requested by ':1.160' (uid=1000 pid=103525 comm="/usr/share/code/code --unity-launch --enable-crash")
+    Apr 02 14:44:11 kali dbus-daemon[637]: [system] Activation via systemd failed for unit 'dbus-org.bluez.service': Unit dbus-org.bluez.service not found.
+    Apr 02 14:44:16 kali dbus-daemon[637]: [system] Activating via systemd: service name='org.freedesktop.hostname1' unit='dbus-org.freedesktop.hostname1.service' requested by ':1.128' (uid=1000 pid=8151 comm="/usr/share/code/code --unity-launch --enable-crash")
+    Apr 02 14:44:16 kali systemd[1]: Starting systemd-hostnamed.service - Hostname Service...
+    Apr 02 14:44:16 kali dbus-daemon[637]: [system] Successfully activated service 'org.freedesktop.hostname1'
+    Apr 02 14:44:16 kali systemd[1]: Started systemd-hostnamed.service - Hostname Service.
+    Apr 02 14:45:01 kali CRON[104197]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+    Apr 02 14:45:01 kali CRON[104198]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+    Apr 02 14:45:01 kali CRON[104197]: pam_unix(cron:session): session closed for user root
+    Apr 02 14:45:08 kali systemd[1]: systemd-hostnamed.service: Deactivated successfully.
+    Apr 02 14:45:15 kali dbus-daemon[637]: [system] Activating via systemd: service name='org.bluez' unit='dbus-org.bluez.service' requested by ':1.162' (uid=1000 pid=104319 comm="/usr/share/code/code --unity-launch --enable-crash")
+    Apr 02 14:45:15 kali dbus-daemon[637]: [system] Activation via systemd failed for unit 'dbus-org.bluez.service': Unit dbus-org.bluez.service not found.
+    Apr 02 14:51:28 kali dbus-daemon[1139]: [session uid=1000 pid=1139] Activating service name='org.xfce.Xfconf' requested by ':1.22' (uid=1000 pid=1286 comm="xfsettingsd")
+    Apr 02 14:51:28 kali dbus-daemon[1139]: [session uid=1000 pid=1139] Successfully activated service 'org.xfce.Xfconf'
 
 ## Оценка результата
 
