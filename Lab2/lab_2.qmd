@@ -24,17 +24,64 @@ engine: knitr
 ## Ход работы:
 ```{r}
 ```
-### 1 - Сбор сетевого трафика в файл <>
+### 1 - Сбор сетевого трафика в файл my_trash.pcapng
 ```{bash}
-ls 
+ls -lah /home/irina/threat_hunting/Lab2/data/my_trash.pcapng
 ```
 
 ### 2 - Выделение метаинформации сетевого трафика
-```{bash}
+
+##### 1. Install zeek (Docker)
+```
+docker pull zeek/zeek:lts
 
 ```
+##### 2. Run && Analise
+```{bash}
+docker run -w /data -v /home/irina/threat_hunting/Lab2/data:/data zeek/zeek:lts zeek -C -r my_trash.pcapng
+```
+Запуск докер-контейнера -> 
+(-v - смонтировать папку с хоста в контейнер; 
+-w - установить рабочую директорию data)
+
+-> Запуск zeek в рабочей директории
+(поскольку, папка смонтирована, результаты работы zeek копируются из контейнера на хост)
+
 
 ### 3 - Сбор данных об источниках нежелательного трафика
+```{bash}
+curl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts -o hosts
+``` 
 
-### 4 - Подсчет процента нежелательного трафика
+### 4 - Подсчет трафика
+
+```{python}
+bad_hosts = [] # нежелательные хосты
+with open('hosts') as file:
+    for line in file.readlines()[40:]:
+        if line[0] == '#':
+            continue
+        try:
+            bad_hosts.append(line.split()[1])
+        except IndexError:
+            continue
+        
+hosts = [] # все хосты
+with open('data/dns.log') as file:
+    for line in file.readlines():
+        if line[0] == '#':
+            continue
+        try:
+            hosts.append(line.split()[9])
+        except IndexError:
+            continue
+```
+##### Процент нежелательного трафика:
+```{python}
+bad_count = len([host for host in hosts if host in bad_hosts])
+percentile = round(bad_count/len(hosts),3)*100
+print("Количество нежелательных хостов: {}.".format(str(bad_count)),
+"Процент нежелательного трафика: {}%.".format(str(percentile)),sep='\n')
+```
+
 
