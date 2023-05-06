@@ -25,17 +25,26 @@ engine: knitr
 ```{r}
 ```
 ### 1 - Сбор сетевого трафика в файл my_trash.pcapng
+1. Использовался сетевой анализатор – Wireshark
+2. Для формирования необходимого объема Интернет был изучен на предмет различных "вредных" сайтов.
 ```{bash}
 ls -lah /home/irina/threat_hunting/Lab2/data/my_trash.pcapng
 ```
 
-### 2 - Выделение метаинформации сетевого трафика
+### 2 - Выделение метаинформации сетевого трафика с помощью утилиты Zeek
+
+Zeek сортирует метаинформацию о трафике в соответствующие папки по протоколам. Нас будет интересовать прежде всего папка DNS запросов.
 
 ##### 1. Install zeek (Docker)
 ```
 docker pull zeek/zeek:lts
 
 ```
+Метаинформация – результат работы Zeek – была перенаправлена в отдельную папку в подпапке
+практической работы,  /data
+
+
+
 ##### 2. Run && Analise
 ```{bash}
 docker run -w /data -v /home/irina/threat_hunting/Lab2/data:/data zeek/zeek:lts zeek -C -r my_trash.pcapng
@@ -48,12 +57,12 @@ docker run -w /data -v /home/irina/threat_hunting/Lab2/data:/data zeek/zeek:lts 
 (поскольку, папка смонтирована, результаты работы zeek копируются из контейнера на хост)
 
 
-### 3 - Сбор данных об источниках нежелательного трафика
+### 3 - Сбор данных об источниках нежелательного трафика из репозитория https://github.com/StevenBlack
 ```{bash}
 curl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts -o hosts
 ``` 
 
-### 4 - Подсчет трафика
+### 4 - Подсчет трафика на языке Python
 
 ```{python}
 bad_hosts = [] # нежелательные хосты
