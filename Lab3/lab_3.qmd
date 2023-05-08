@@ -60,3 +60,9 @@ docker pull opensearchproject/opensearch-dashboards:latest
 ### 3. Сбор информации из файлов журналов (лог-файлов)
 
 
+
+## Оценка результата
+
+
+## Вывод
+
