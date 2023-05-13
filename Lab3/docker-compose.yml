@@ -1,49 +1,47 @@
-version: '3'
+version: "3"
 services:
-  opensearch: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
-    image: opensearchproject/opensearch:latest # Specifying the latest available image - modify if you want a specific version
-    container_name: opensearch-node1
+  elasticsearch:
+    container_name: elasticsearch
+    image: elastic/elasticsearch:7.17.10
     environment:
+      - xpack.security.enabled=false
       - "discovery.type=single-node"
-      - bootstrap.memory_lock=true # Disable JVM heap memory swapping
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
-    volumes:
-      - opensearch-data:/usr/share/opensearch/data # Creates volume called opensearch-data1 and mounts it to the container
-    ports:
-      - 9200:9200 # REST API
     networks:
-      - opensearch-net # All of the containers will join the same Docker bridge network
-  opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:latest # Make sure the version of opensearch-dashboards matches the version of opensearch installed on other nodes
-    container_name: opensearch-dashboards
+      - search-net
     ports:
-      - 5601:5601 # Map host port 5601 to container port 5601
-    expose:
-      - "5601" # Expose port 5601 for web access to OpenSearch Dashboards
+      - 9200:9200
+  kibana:
+    container_name: kibana
+    image: elastic/kibana:7.17.10
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     networks:
-      - opensearch-net
+      - search-net
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
   packetbeat:
     container_name: packetbeat
-    image: "docker.elastic.co/beats/packetbeat-oss:7.12.1"
+    image: elastic/packetbeat:7.17.10
     volumes:
-      - ./config/packetbeat/packetbeat.yml:/usr/share/packetbeat/packetbeat.yml
+      - ./config/packetbeat.yml:/usr/share/packetbeat/packetbeat.yml
     cap_add: ['NET_RAW', 'NET_ADMIN']
-    network_mode: host
+    networks:
+      - search-net
     depends_on:
-      - opensearch
+      - elasticsearch
   filebeat:
     container_name: filebeat
-    image: "docker.elastic.co/beats/filebeat-oss:7.12.1"
+    image: elastic/filebeat:7.17.10
+    user: root
     volumes:
-      - ./config/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - /var/log/syslog:/var/log/syslog:ro
+      - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - /var/log/:/var/log/
     networks:
-      - opensearch-net
+      - search-net
     depends_on:
-      - opensearch
-  
-  
-volumes:
-  opensearch-data:
+      - elasticsearch
+
 networks:
-  opensearch-net:
+  search-net:

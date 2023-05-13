@@ -3,7 +3,7 @@ Kabanova Svetlana BISO-01-20
 
 # Лабораторная работа №3
 
-# Развертывание системы мониторинга ELK Stack (Opensearch)
+# Развертывание системы мониторинга ELK Stack
 
 ## Цель работы
 
@@ -15,10 +15,10 @@ Kabanova Svetlana BISO-01-20
 
 ## Задание
 
-1.  Развернуть систему мониторинга на базе Opensearch
-    -   Opensearch
+1.  Развернуть систему мониторинга на базе Elasticsearch
+    -   Elasticsearch
     -   Beats (Filebeat, Packetbeat)
-    -   OpenSearch Dashboards
+    -   Kibana
 2.  Настроить сбор информации о сетевом трафике
 3.  Настроить сбор информации из файлов журналов (лог-файлов)
 4.  Оформить отчет в соответствии с шаблоном
@@ -27,7 +27,7 @@ Kabanova Svetlana BISO-01-20
 
 ##### 0. Important host settings
 
-Before launching OpenSearch you should review some important system
+Before launching Elasticsearch you should review some important system
 settings that can impact the performance of your services.
 
 Disable memory paging and swapping performance on the host to improve
@@ -35,7 +35,7 @@ performance.
 
         sudo swapoff -a
 
-Increase the number of memory maps available to OpenSearch.
+Increase the number of memory maps available to Elasticsearch.
 
         sudo vi /etc/sysctl.conf
 
@@ -45,16 +45,13 @@ Increase the number of memory maps available to OpenSearch.
 
         cat /proc/sys/vm/max_map_count
 
-##### 1. Run OpenSearch in a Docker container
+##### 1. Run Elasticsearch in a Docker container
 
-    docker pull opensearchproject/opensearch:latest
-    docker pull opensearchproject/opensearch-dashboards:latest
-
-##### 2. Docker-compose настраивался по [инструкции](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/)
+##### 2. Docker-compose
 
 #### Beats (Filebeat, Packetbeat)
 
-#### OpenSearch Dashboards
+#### Kibana
 
 ### 2. Сбор информации о сетевом трафике
 

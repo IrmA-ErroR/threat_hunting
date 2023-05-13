@@ -1,5 +1,19 @@
-filebeat.modules:
-#Filebeat system module consumes logs from host OS through a mounted volume
-- module: system
-  syslog:
-    var.paths: ["/var/log/syslog"]
+setup.template.name: "filebeat"
+setup.template.pattern: "filebeat"
+setup.template.overwrite: true
+setup.template.settings:
+  index.number_of_shards: 1
+  index.number_of_replicas: 1
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+  - /var/log/*.log
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+output.elasticsearch.index: "filebeat"
+ssl.verification_mode: none
+setup.kibana:
+  host: "kibana:5601"
+
+

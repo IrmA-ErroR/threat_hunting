@@ -1,3 +1,6 @@
+setup.template.name: "packetbeat"
+setup.template.pattern: "packetbeat"
+setup.template.overwrite: true
 packetbeat.interfaces.device: any
 packetbeat.flows:
   enabled: true
@@ -20,6 +23,9 @@ packetbeat.protocols.http:
   send_response: false
   transaction_timeout: 10s
 output.elasticsearch:
-  hosts: ["localhost:9200"]
+  hosts: ["http://elasticsearch:9200"]
+output.elasticsearch.index: "packetbeat"
+ssl.verification_mode: none
 logging.to_files: false
-logging.to_files: false
+setup.kibana:
+  host: "kibana:5601"
