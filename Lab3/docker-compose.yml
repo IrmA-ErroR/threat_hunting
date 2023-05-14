@@ -27,8 +27,7 @@ services:
     volumes:
       - ./config/packetbeat.yml:/usr/share/packetbeat/packetbeat.yml
     cap_add: ['NET_RAW', 'NET_ADMIN']
-    networks:
-      - search-net
+    network_mode: host
     depends_on:
       - elasticsearch
   filebeat:

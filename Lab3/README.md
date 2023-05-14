@@ -45,18 +45,63 @@ Increase the number of memory maps available to Elasticsearch.
 
         cat /proc/sys/vm/max_map_count
 
-##### 1. Run Elasticsearch in a Docker container
+##### 1. Docker-compose
 
-##### 2. Docker-compose
+Создается файл docker-compose.yml, в котором описываются настройки
+Elasticsearch, Kibana, Filebeat, Packetbeat
+
+##### 2. Run Elasticsearch in a Docker container
+
+    docker compose up -d
+
+Проверка контейнеров:
+
+``` bash
+docker compose ps -a
+```
+
+    NAME                IMAGE                           COMMAND                  SERVICE             CREATED             STATUS              PORTS
+    elasticsearch       elastic/elasticsearch:7.17.10   "/bin/tini -- /usr/l…"   elasticsearch       6 minutes ago       Up 6 minutes        0.0.0.0:9200->9200/tcp, :::9200->9200/tcp, 9300/tcp
+    filebeat            elastic/filebeat:7.17.10        "/usr/bin/tini -- /u…"   filebeat            6 minutes ago       Up 6 minutes        
+    kibana              elastic/kibana:7.17.10          "/bin/tini -- /usr/l…"   kibana              6 minutes ago       Up 6 minutes        0.0.0.0:5601->5601/tcp, :::5601->5601/tcp
+    packetbeat          elastic/packetbeat:7.17.10      "/usr/bin/tini -- /u…"   packetbeat          6 minutes ago       Up 6 minutes        
 
 #### Beats (Filebeat, Packetbeat)
 
+Для каждого модуля создаются конфиги. Для удобства сохранены в папке
+config
+
+``` bash
+ls config/
+```
+
+    filebeat.yml
+    packetbeat.yml
+
+В них прописаны адреса подключения к Elasticsearch, Kibana, а также для
+Packetbeat указаны сетевые интерфейсы, для Filebeat - файлы для чтения.
+
 #### Kibana
+
+![](img/Kibana_home_page.png)
+
+![Создание индекса](./img/Create_index.png)
 
 ### 2. Сбор информации о сетевом трафике
 
+![Packetbeat](img/Packetbeat_host.png)
+
 ### 3. Сбор информации из файлов журналов (лог-файлов)
+
+![Filetbeat](img/Filebeat.png)
 
 ## Оценка результата
 
+Была развёрнута система ElasticSearch и настроена система сбора трафика
+и лог-файлов.
+
 ## Вывод
+
+В результате работы были освоены система контейнеризации приложений
+Docker, инструментальное средство Docker Compose и система
+централизованного сбора и накопления информации ElasticSearch.

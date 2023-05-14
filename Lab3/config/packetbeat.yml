@@ -23,9 +23,9 @@ packetbeat.protocols.http:
   send_response: false
   transaction_timeout: 10s
 output.elasticsearch:
-  hosts: ["http://elasticsearch:9200"]
+  hosts: ["http://localhost:9200"]
 output.elasticsearch.index: "packetbeat"
 ssl.verification_mode: none
 logging.to_files: false
 setup.kibana:
-  host: "kibana:5601"
+  host: "localhost:5601"
