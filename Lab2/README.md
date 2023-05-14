@@ -72,8 +72,9 @@ curl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts -o hosts
                                      Dload  Upload   Total   Spent    Left  Speed
 
       0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-     15 5676k   15  895k    0     0  2092k      0  0:00:02 --:--:--  0:00:02 2093k
-    100 5676k  100 5676k    0     0  4433k      0  0:00:01  0:00:01 --:--:-- 4438k
+      0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+     89 5676k   89 5103k    0     0  4641k      0  0:00:01  0:00:01 --:--:-- 4639k
+    100 5676k  100 5676k    0     0  4757k      0  0:00:01  0:00:01 --:--:-- 4754k
 
 ### 4 - Подсчет трафика на языке Python
 
@@ -89,7 +90,7 @@ with open('hosts') as file:
             continue
         
 hosts = [] # все хосты
-with open('data/dns.log') as file:
+with open('dns.log') as file:
     for line in file.readlines():
         if line[0] == '#':
             continue
