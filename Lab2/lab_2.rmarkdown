@@ -7,6 +7,7 @@ format:
 engine: knitr
 ---
 
+
 # Лабораторная работа №2
 # Сбор и аналитическая обработка информации о сетевом трафике
 
@@ -23,14 +24,18 @@ engine: knitr
 5. Оформить отчет в соответствии с шаблоном
 
 ## Ход работы:
+
 ```{r}
 ```
+
 ### 1 - Сбор сетевого трафика в файл my_trash.pcapng
 1. Использовался сетевой анализатор – Wireshark
 2. Для формирования необходимого объема Интернет был изучен на предмет различных "вредных" сайтов.
+
 ```{bash}
 ls -lah /home/irina/threat_hunting/Lab2/data/my_trash.pcapng
 ```
+
 
 ### 2 - Выделение метаинформации сетевого трафика с помощью утилиты Zeek
 
@@ -47,9 +52,11 @@ docker pull zeek/zeek:lts
 
 
 ##### 2. Run && Analise
+
 ```{bash}
 docker run -w /data -v /home/irina/threat_hunting/Lab2/data:/data zeek/zeek:lts zeek -C -r my_trash.pcapng
 ```
+
 Запуск докер-контейнера -> 
 (-v - смонтировать папку с хоста в контейнер; 
 -w - установить рабочую директорию data)
@@ -59,11 +66,14 @@ docker run -w /data -v /home/irina/threat_hunting/Lab2/data:/data zeek/zeek:lts 
 
 
 ### 3 - Сбор данных об источниках нежелательного трафика из репозитория https://github.com/StevenBlack
+
 ```{bash}
 curl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts -o hosts
 ``` 
 
+
 ### 4 - Подсчет трафика на языке Python
+
 
 ```{python}
 bad_hosts = [] # нежелательные хосты
@@ -86,7 +96,9 @@ with open('dns.log') as file:
         except IndexError:
             continue
 ```
+
 ##### Процент нежелательного трафика:
+
 ```{python}
 bad_count = len([host for host in hosts if host in bad_hosts])
 percentile = round(bad_count/len(hosts),3)*100
@@ -95,9 +107,11 @@ print("Количество нежелательных хостов: {}.".format
 ```
 
 
+
 ## Оценка результата
 В результате лабораторной работы научились определять нежелательный трафик.
 
 ## Вывод
 Таким образом, мы научились анализировать сетевой трафик.
+
 
