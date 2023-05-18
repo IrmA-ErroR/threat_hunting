@@ -14,12 +14,59 @@ Kabanova Svetlana BISO-01-20
 
 ### 1. Развертывание системы threat intelligence – Open CTI https://www.opensourceagenda.com/projects/opencti
 
+Создается docker-compose.yaml в соответствии с официальной документацией
+![OpenCTI](https://github.com/OpenCTI-Platform/docker/blob/master/docker-compose.yml).
+
+    docker compouse up -d
+
+На localhost:8080 поднимается система:
+
+![](img/opencti1.png)
+
+Вход в систему осуществляется с кредами, прописанными в .env
+
+![](img/opencti2_home_page.png)
+
 ### 2. Настройка дополнительныx источников информации об угрозах ИБ
 
 (один или несколько дополнительных фидов) – например,
 https://github.com/openctibr/threatFeeds
 
 ### 3. Проверка наличия индикаторов компрометации в собранном в ПР №3 наборе данных (метаданные траффика).
+
+Создаем индикаторы из фйала hosts
+
+    python3 uppload.py
+
+*Этот скрип создает индикаторы, считывая данные из файла hosts*
+
+Индикаторы появляются без метки, выбираем все и помечаем как ‘malicious
+domain’
+
+![](img/opencti3.jpg)
+
+Подгружаем файл с трафиком (dns.log) Data Import -\> Upload files
+
+![](img/opencti4_data_import.png)
+
+Переходим в dns.log
+
+![](img/opencti5.jpeg)
+
+Далее необходимо провалидировать данные
+
+Система добавит индикаторы из dns.log и создаст отчет по данному файлу.
+Отчет находится в Analysis/reports
+
+![](img/opencti6_analysis.png)
+
+Переходим в Oservables
+
+![](img/opencti7_observables.png)
+
+Начальная страница теперь выглядит так:
+
+![](opencti8.png)
 
 ## Оценка результата
 
