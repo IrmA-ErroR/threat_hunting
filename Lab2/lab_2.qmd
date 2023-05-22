@@ -36,7 +36,7 @@ ls -lah /home/irina/threat_hunting/Lab2/data/my_trash.pcapng
 
 Zeek сортирует метаинформацию о трафике в соответствующие папки по протоколам. Нас будет интересовать прежде всего папка DNS запросов.
 
-###### 1. Install zeek (Docker)
+**Install zeek (Docker)**
 ```
 docker pull zeek/zeek:lts
 
@@ -46,7 +46,7 @@ docker pull zeek/zeek:lts
 
 
 
-###### 2. Run && Analise
+**Run && Analise**
 ```{bash}
 docker run -w /data -v /home/irina/threat_hunting/Lab2/data:/data zeek/zeek:lts zeek -C -r my_trash.pcapng
 ```

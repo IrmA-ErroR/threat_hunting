@@ -43,14 +43,14 @@ ls -lah /home/irina/threat_hunting/Lab2/data/my_trash.pcapng
 Zeek сортирует метаинформацию о трафике в соответствующие папки по
 протоколам. Нас будет интересовать прежде всего папка DNS запросов.
 
-###### 1. Install zeek (Docker)
+**Install zeek (Docker)**
 
     docker pull zeek/zeek:lts
 
 Метаинформация – результат работы Zeek – была перенаправлена в отдельную
 папку в подпапке практической работы, /data
 
-###### 2. Run && Analise
+**Run && Analise**
 
 ``` bash
 docker run -w /data -v /home/irina/threat_hunting/Lab2/data:/data zeek/zeek:lts zeek -C -r my_trash.pcapng
@@ -72,8 +72,9 @@ curl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts -o hosts
                                      Dload  Upload   Total   Spent    Left  Speed
 
       0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-     82 5814k   82 4822k    0     0  7190k      0 --:--:-- --:--:-- --:--:-- 7187k
-    100 5814k  100 5814k    0     0  8087k      0 --:--:-- --:--:-- --:--:-- 8086k
+      0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+     88 5853k   88 5184k    0     0  5064k      0  0:00:01  0:00:01 --:--:-- 5062k
+    100 5853k  100 5853k    0     0  5256k      0  0:00:01  0:00:01 --:--:-- 5254k
 
 ### 4 - Подсчет трафика на языке Python
 
