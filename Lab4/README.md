@@ -32,6 +32,12 @@ Kabanova Svetlana BISO-01-20
 (один или несколько дополнительных фидов) – например,
 https://github.com/openctibr/threatFeeds
 
+![](img/opencti_feed.jpeg)
+
+В feed находятся бразильские доменные имена (заканчиваются на br)
+
+![](img/opencti_feed_validation.jpeg)
+
 ### 3. Проверка наличия индикаторов компрометации в собранном в ПР №3 наборе данных (метаданные траффика).
 
 Создаем индикаторы из фйала hosts
@@ -44,6 +50,10 @@ https://github.com/openctibr/threatFeeds
 domain’
 
 ![](img/opencti3.jpg)
+
+Генерируем Observables на основе Indicators
+
+![](img/opencti_generate.jpg)
 
 Подгружаем файл с трафиком (dns.log) Data Import -\> Upload files
 
@@ -64,9 +74,12 @@ domain’
 
 ![](img/opencti7_observables.png)
 
-Начальная страница теперь выглядит так:
+Фильтруем домены по метке ‘malicious domain’. В результате получаем 6
+уникальных нежелательных доменов
 
-![](img/opencti8.png)
+![](img/opencti_detect.jpeg)
+
+Один из доменов заканчивается на br, это значит feed отработал
 
 ## Оценка результата
 
