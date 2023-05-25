@@ -26,7 +26,7 @@ engine: knitr
 
 ## Описание шагов:
 
-1.  Созданный сайт: https://IrmA-ErroR.github.io/threat_hunting/
+1.  Созданный сайт: https://irma-error.github.io/
 
 
 ## Оценка результатов
