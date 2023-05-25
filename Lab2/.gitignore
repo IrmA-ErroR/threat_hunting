@@ -1,6 +1,0 @@
-*.html
-*.pcapng
-.gitignore
-README_files/
-*.log
-!dns.log
